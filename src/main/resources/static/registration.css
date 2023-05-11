@@ -1,0 +1,64 @@
+html {
+    font-size: 125%;
+    line-height: 1.4;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, hsl(240, 50%, 78%), hsl(30, 100%, 50%))
+}
+
+/* Demo styles */
+h2 {
+    font-size: 2em;
+}
+
+h2, p {
+    margin: 0;
+}
+
+p + * {
+    margin-top: 1em;
+}
+
+h2 + p {
+    margin-top: 1em;
+}
+
+/* Form styles */
+
+form {
+    max-width: 20em;
+    border: 0.5em solid hsl(30, 76%, 10%);
+    padding: 2em;
+    background: white;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    margin-right: 1ch;
+}
+
+input {
+    width: 100%;
+    font: inherit;
+    padding: 0.25em 0.5em;
+    border: 0.125em solid hsl(30, 76%, 10%);
+    outline: none;
+}
+
+/* Show green borders when valid */
+input[data-state="valid"] {
+    border-color: hsl(120, 76%, 50%);
+}
+
+/* Show red borders when filled, but invalid */
+input[data-state="invalid"] {
+    border-color: hsl(0, 76%, 50%);;
+}

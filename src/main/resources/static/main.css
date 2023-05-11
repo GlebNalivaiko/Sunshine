@@ -1,0 +1,4 @@
+.box:hover {
+    border:2px solid snow;
+    display: inline-block;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/product.js}"></script>
+    <title>Title</title>
+</head>
+<body style="background-color: deepskyblue">
+<div style="text-align: center">Product<a style="text-align: center;text-decoration: none" th:href="@{sunshine-by}">/Main Page</a></div>
+<div style="width: 400px;margin-top: 70px;margin-left: 200px" class="input-group input-group-lg">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+    <input id="title" type="text" class="form-control" aria-label="Пример размера поля ввода"
+           aria-describedby="inputGroup-sizing-lg">
+</div>
+
+<div style="width: 400px;margin-top: 40px;margin-left: 200px" class="input-group">
+    <span class="input-group-text">Price</span>
+    <input id="price" type="text" aria-label="Имя" class="form-control">
+    <span class="input-group-text">Discount</span>
+    <input id="discount" type="text" aria-label="Фамилия" class="form-control">
+    <span class="input-group-text">Quantity</span>
+    <input id="quantityInStock" type="text" aria-label="Фамилия" class="form-control">
+</div>
+<div style="margin-left: 200px;margin-top: 40px;width: 500px" class="input-group">
+    <span class="input-group-text">Description</span>
+    <textarea id="description" class="form-control" aria-label="С текстовым полем"></textarea>
+</div>
+<select id="select" style="margin-left: 200px;margin-top: 40px;width: 300px" class="form-select"
+        aria-label="Пример выбора по умолчанию">
+    <option selected>Откройте это меню выбора</option>
+    <option value="1">Electronic</option>
+    <option value="2">Cosmetic</option>
+    <option value="3">Sport</option>
+    <option value="4">Board Games</option>
+    <option value="5">Men's Clothing</option>
+    <option value="6">Women's Clothing</option>
+    <option value="7">Household Items</option>
+    <option value="8">Tourism</option>
+    <option value="9">Proper Nutrition</option>
+</select>
+
+<div style="margin-top: 50px;text-align: center">
+    <div id="parentId">
+        <div id="characteristic">
+            <div id="3">
+                <input value="" type="text"
+                       style="border: black 1px solid;font-size: 15px;border-radius: 5px;width:300px;height: 30px"/>
+                <a style="color:red;" onclick="return deleteField(this)" href="#">[—]</a>
+                <input maxlength="10" value="" type="text"
+                       style="border: black 1px solid;font-size: 15px;width:300px;border-radius: 5px;height: 30px"/>
+                <a style="color:green;" onclick="return addField()" href="#">[+]</a></div>
+        </div>
+    </div>
+</div>
+<div id="images">
+    <input style="margin-left: 200px;margin-top: 50px;text-align: center" type="file"
+           onchange="imagesClick(this,0)">
+    <input style="margin-left: 200px;margin-top: 50px;text-align: center" type="file"
+           onchange="imagesClick(this,1)">
+    <input style="margin-left: 200px;margin-top: 50px;text-align: center" type="file"
+           onchange="imagesClick(this,2)">
+    <input style="margin-left: 200px;margin-top: 50px;text-align: center" type="file"
+           onchange="imagesClick(this,3)">
+    <input style="margin-left: 200px;margin-top: 50px;text-align: center" type="file"
+           onchange="imagesClick(this,4)">
+
+</div>
+<button type="button" th:onclick="'submit();'" style="width: 100px; height: 50px; margin-left: 679px">Here</button>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</body>
+</html>

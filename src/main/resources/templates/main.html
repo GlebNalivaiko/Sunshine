@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine</title>
+    <link rel="icon" th:href="@{img/logo.jpg}">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/block_animation.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+    <link rel="stylesheet" th:href="@{/main_sliding_panel.css}">
+    <link rel="stylesheet" th:href="@{/currencies.css}">
+    <link rel="stylesheet" th:href="@{/flag-icon-css/css/flag-icon.min.css}">
+</head>
+<body style="background-color: #E3E6E6">
+<nav th:replace="pattern :: header('#', '/cart', '/order-cart')"></nav>
+<nav th:replace="pattern :: navbar"></nav>
+
+
+<div style="width: 100%;height: 300px" id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img style="z-index:1;width: 100%; height: 300px" th:src="@{/img/telephone.jpg}" class="d-block w-100"
+                 alt="Telephone">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img style="z-index:1;width: 100%; height: 300px" th:src="@{/img/ship.jpg}" class="d-block w-100"
+                 alt="Delivery">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img style="z-index:1;width: 100%; height: 300px" th:src="@{/img/mouse.jpg}" class="d-block w-100"
+                 alt="Mouse 'Steel Series'">
+        </div>
+    </div>
+    <button style="z-index: 50000" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button style="z-index: 10" class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+        crossorigin="anonymous"></script>
+
+<div style="margin-block: -30px" class="container text-center">
+    <div class="row g-4">
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Electronic
+                </div>
+                <a style="text-align: center" th:href="@{/products/1/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/electronics.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Cosmetic
+                </div>
+                <a style="text-align: center" th:href="@{/products/2/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/cosmetics.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Sport
+                </div>
+                <a style="text-align: center" th:href="@{/products/3/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/sport.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Board Games
+                </div>
+                <a style="text-align: center" th:href="@{/products/4/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/board_games.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Men's Clothing
+                </div>
+                <a style="text-align: center" th:href="@{/products/5/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/man_clothe.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Women's Clothing
+                </div>
+                <a style="text-align: center" th:href="@{/products/6/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/woman_clothe.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Household Items
+                </div>
+                <a style="text-align: center" th:href="@{/products/7/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/house.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Tourism
+                </div>
+                <a style="text-align: center" th:href="@{/products/8/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/tourism.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+        <div style="z-index: 1000" class="col-4">
+            <div style="background-color: #bacbe6" class="p-5 c">
+                <div style="width: 290px;margin-left: 4px;text-align: left;margin-top: -20px; font-weight: bold;font-family: Ebrima, math">
+                    Proper Nutrition
+                </div>
+                <a style="text-align: center" th:href="@{/products/9/0}">
+                    <img style="margin-block: 10px;width: 300px;height: 200px" th:src="@{/img/nutrition.jpg}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<footer th:replace="pattern :: footer"></footer>
+
+<script th:href="@{/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

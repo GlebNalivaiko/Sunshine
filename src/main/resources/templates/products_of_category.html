@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine</title>
+    <link rel="icon" th:href="@{/img/logo.jpg}">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/block_animation.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/category_page.css}">
+    <link rel="stylesheet" th:href="@{/product_page.css}">
+    <link rel="stylesheet" th:href="@{/currencies.css}">
+    <link rel="stylesheet" th:href="@{/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+    <link rel="stylesheet" th:href="@{/hidden_text.css}">
+    <link rel="stylesheet" th:href="@{/pagination.css}">
+    <link rel="stylesheet" th:href="@{/main_sliding_panel.css}">
+</head>
+<body style="background-color: #E3E6E6">
+<div>
+    <nav th:replace="pattern :: header('/sunshine-by', '/cart', '/order-cart')"></nav>
+    <nav th:replace="pattern :: navbar"></nav>
+
+    <div style=" position:absolute;float: left" class="container text-center">
+        <div style="font-weight: bold;font-size: 23px;font-family: 'Malgun Gothic',ui-serif; "
+             class="row">
+            <!--фильтрация-->
+            <div class="col-lg-3">Filtering
+
+                <div style="margin-right: 50px">
+                    <div style="margin-top: 30px;font-weight: normal; font-family: Ebrima,monospace">Cost</div>
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;font-size: 16px; letter-spacing: -.3px;line-height: 24px;text-decoration: none">
+                            0$ to 142$</p>
+                    </div>
+
+                    <div>
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;font-size: 16px; letter-spacing: -.3px;line-height: 24px;text-decoration: none">
+                            142$ to 260$</p>
+                    </div>
+
+
+                    <div>
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;font-size: 16px; letter-spacing: -.3px;line-height: 24px;text-decoration: none">
+                            260$ to 510$</p>
+                    </div>
+
+
+                    <div style="margin-right: 16px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;font-size: 16px; letter-spacing: -.3px;line-height: 24px;text-decoration: none">
+                            510$ to ...</p>
+                    </div>
+
+                    <form style="display: inline-block" method="post">
+                        <input required
+                               style="font-family: Gabriela,system-ui;font-size:15px;border: 1px solid black;text-align: center;text-decoration: none;height: 40px;width: 70px;border-radius: 30px;display: inline-block"
+                               placeholder="from">
+                        <input required
+                               style="font-family: Gabriela,system-ui;font-size:15px;border: 1px solid black;text-align: center;text-decoration: none;height: 40px;width: 70px;border-radius: 30px;display:inline-block;"
+                               placeholder="to">
+                        <button style="border-radius: 30px;display: inline-block" type="submit" height="25px"
+                                class="btn btn-primary">Sort
+                        </button>
+                    </form>
+
+
+                </div>
+
+
+                <div style="margin-right: 50px">
+                    <div style="margin-top: 30px;font-weight: normal; font-family: Ebrima,monospace">Rating</div>
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black;height: 15px;width: 15px;margin-right: 12px;display: inline-block"
+                           th:href="@{/products/rating/{id}/{activePage}/{start}/{end}(id=${category.getId()},activePage=${activePage},start=${1},end=${1.2})}"></a>
+                        <p style="margin-block: -30px;display: inline-block;text-decoration: none;">
+                            <img th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                                 style="margin-bottom: 4px;height: 33px; width: 40px;margin-left:-20px;display: inline-block"
+                                 th:src="@{/img/full_star.png}">
+                        </p>
+                    </div>
+
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black;height: 15px;width: 15px;margin-right: 12px;display: inline-block"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;text-decoration: none;">
+                            <img th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                                 style="margin-bottom: 4px;height: 33px; width: 40px;margin-left:-20px;display: inline-block"
+                                 th:with="picture=${count<4}?'/img/full_star.png':'/img/white_star.png'"
+                                 th:src="@{${picture}}">
+                        </p>
+                    </div>
+
+
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black;height: 15px;width: 15px;margin-right: 12px;display: inline-block"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;text-decoration: none;">
+                            <img th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                                 style="margin-bottom: 4px;height: 33px; width: 40px;margin-left:-20px;display: inline-block"
+                                 th:with="picture=${count<3}?'/img/full_star.png':'/img/white_star.png'"
+                                 th:src="@{${picture}}">
+                        </p>
+                    </div>
+
+
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black;height: 15px;width: 15px;margin-right: 12px;display: inline-block"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;text-decoration: none;">
+                            <img th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                                 style="margin-bottom: 4px;height: 33px; width: 40px;margin-left:-20px;display: inline-block"
+                                 th:with="picture=${count<2}?'/img/full_star.png':'/img/white_star.png'"
+                                 th:src="@{${picture}}">
+                        </p>
+                    </div>
+
+                    <div style="margin-right: 17px">
+                        <a style="width: 15px;height: 15px;text-decoration: none;display: inline-block;border-radius: 10px;border: 1px solid black;height: 15px;width: 15px;margin-right: 12px;display: inline-block"
+                           th:href="@{/category/1/0}"></a>
+                        <p style="margin-block: -30px;display: inline-block;text-decoration: none;">
+                            <img th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                                 style="margin-bottom: 4px;height: 33px; width: 40px;margin-left:-20px;display: inline-block"
+                                 th:with="picture=${count<1}?'/img/full_star.png':'/img/white_star.png'"
+                                 th:src="@{${picture}}">
+                        </p>
+                    </div>
+
+                    <form style="display: inline-block" method="post">
+                        <input required
+                               style="font-family: Gabriela,system-ui;font-size:15px;border: 1px solid black;text-align: center;text-decoration: none;height: 40px;width: 70px;border-radius: 30px;display: inline-block"
+                               placeholder="from">
+                        <input required
+                               style="font-family: Gabriela,system-ui;font-size:15px;border: 1px solid black;text-align: center;text-decoration: none;height: 40px;width: 70px;border-radius: 30px;display:inline-block;"
+                               placeholder="to">
+                        <button style="border-radius: 30px;display: inline-block" type="submit" height="25px"
+                                class="btn btn-primary">Sort
+                        </button>
+                    </form>
+                </div>
+
+
+            </div>
+            <!--                фильтрация -->
+
+
+            <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+            <div style="" class="col-lg-9">
+                <div th:text="${category.getName()}"></div>
+                <div>
+                    <div style="background-color: whitesmoke;margin-block: 30px;text-align: left;border: gray solid 0.5px;border-radius: 19px"
+                         th:each="product:${page.getContent()}">
+
+
+                        <a th:href="@{/products/{id}(id=${product.getId()})}">
+                            <div style="display: inline-block;padding: 10px">
+                                <div class="common">
+                                    <div class="images">
+                                        <img th:each="i:${product.getImages()}" class="image"
+                                             th:src="*{'data:image/jpg;base64,'+ i.getPixels()}"
+                                             th:title="${i.getDescription()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        <div th:with="discount=${product.getPrice()/session.user.valueOfCurrency},
+                              price=${(product.getPrice()-product.getDiscount()*product.getPrice())/session.user.valueOfCurrency},
+                              currency=${session.user.currency}" width="500px"
+                             style="float: right;margin-left: 40px;text-align: left;position: absolute;display: inline-block">
+                            <div style="color: #0F1111!important;font-family: tahoma,sans-serif;font-weight: 400!important;display: inline-block;"
+                                 th:text="${product.getTitle()}"></div>
+                            <span class="hidden" style="width: 565px;font-family: gabriola,serif"
+                                  th:text="${product.getDescription()}"></span>
+
+
+                            <div>
+                                 <span th:if="${product.getDiscount()>0}"
+                                       style="font-size: 20px;color: gray;text-decoration: line-through red"
+                                       th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',discount)}"></span>
+                                &nbsp;&nbsp;
+                                <span th:if="${product.getDiscount()>0}"
+                                      style="font-size: 20px;color: red"
+                                      th:text="'-'+${product.getDiscount()*100}+'%'"></span>
+                                <div style="font-weight: bold; font-size: 25px"
+                                     th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',price)}"></div>
+
+                                <div th:with="stars=${product.getAverageRating()}">
+
+                                    <div style="display:inline-block;font-size: 14px!important;
+                                line-height: 20px!important;font-weight: normal;font-family:Arial,sans-serif; color: #0F1111"
+                                         th:text="${stars}"></div>
+
+                                    <div style="margin-left: -17px;display: inline-block">
+                                        <div style="display: inline-block"
+                                             th:each="count : ${#numbers.sequence( 0, 4/1)}">
+
+                                            <div style="width:9px;height: 10px;display:inline-block"
+                                                 th:switch="${true}">
+                                                <img th:case="${count<stars&&stars>=count+0.3&&stars<count+0.8}"
+                                                     style="height: 33px;width: 40px" th:src="@{/img/half_star.png}">
+                                                <img th:case="${stars>=count+0.8}" style="height: 33px;width: 40px"
+                                                     th:src="@{/img/full_star.png}">
+                                                <img th:case="${true}" style="height: 33px;width: 40px"
+                                                     th:src="@{/img/white_star.png}">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div style="    display: inline-block;
+                                  font-weight: normal; margin-left: 19px;">
+                                        <span style="text-decoration: none;    font-size: 17px!important;
+                                    line-height: 16px!important;color: #007185" title="Ratings"
+                                              th:text="'('+${#lists.size(product.getComments())}+')'">
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <a style="text-decoration: none"
+                                   th:if="${#sets.contains(session.user.productIds, product.id)}"
+                                   th:href="@{/cart}">
+                                    <button style="background-color: greenyellow;margin-top: 25px;border-radius: 40px"
+                                            type="button" class="btn btn-success">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-arrow-right-circle-fill"
+                                             viewBox="0 0 16 16">
+                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"></path>
+                                        </svg>
+                                        Cart
+                                    </button>
+                                </a>
+                                <a style="text-decoration: none"
+                                   th:if="${!#sets.contains(session.user.productIds, product.id)}"
+                                   th:href="@{/cart/{product_id}(product_id=${product.id})}">
+                                    <button style="margin-top: 25px;border-radius: 40px" type="button"
+                                            class="btn btn-outline-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                             fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="margin-left: 250px">
+                    <!--                   пагинация-->
+
+                    <div th:if="${page.getTotalPages()>1}" class="container">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-8">
+                                <nav class="pagination-outer" aria-label="Page navigation"
+                                     th:with="activePage=${page.number}, quantityOfPages=${page.getTotalPages()}">
+                                    <ul th:with="start=${quantityOfPages<=5}?0:(${activePage<=2}?0:(${activePage+2<quantityOfPages}?${activePage}+-2:${quantityOfPages}+-5)),
+                                    end=${quantityOfPages<=5}?${quantityOfPages}+-1:${start}+4" class="pagination">
+
+                                        <li class="page-item">
+                                            <a th:if="${activePage > 0}"
+                                               th:href="@{/products/{id}/{activePage}(id=${category.getId()},activePage=${activePage+-1})}"
+                                               class="page-link"
+                                               aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li
+                                                th:each="count : ${#numbers.sequence( start, end, 1)}"
+                                                th:class="${activePage==count} ? 'page-item active' : 'page-item'">
+                                            <a class="page-link"
+                                               th:href="@{/products/{id}/{activePage}(id=${category.getId()},activePage=${count})}"
+                                               th:text="${count+1}"></a>
+                                        </li>
+                                        <li th:if="${activePage < quantityOfPages+-1}" class="page-item">
+                                            <a th:href="@{/products/{id}/{activePage}(id=${category.getId()},activePage=${activePage+1})}"
+                                               class="page-link" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--                    пагинация-->
+                </div>
+            </div>
+        </div>
+        <div th:insert="pattern :: footer" style=" margin-left: -12px;position: absolute;width: 1462px"></div>
+    </div>
+</div>
+
+
+<script>
+    (function ($) {
+        $.fn.HvrSlider = function () {
+            return this.each(function () {
+                var el = $(this);
+                if (el.find('img').length > 0) {
+                    var hvr = $('<div>', {
+                        class: 'hvr',
+                        append: [
+                            $('<div>', {
+                                class: 'hvr__images',
+                                append: $('<div>', {
+                                    class: 'hvr__sectors',
+                                }),
+                            }),
+                            $('<div>', {
+                                class: 'hvr__dots',
+                            }),
+                        ],
+                        insertAfter: el,
+                        prepend: el,
+                    });
+                    var hvrImages = $('.hvr__images', hvr);
+                    var hvrImage = $('img', hvr);
+                    var hvrSectors = $('.hvr__sectors', hvr);
+                    var hvrDots = $('.hvr__dots', hvr);
+                    el.prependTo(hvrImages);
+                    hvrImage.each(function () {
+                        hvrSectors.prepend('<div class="hvr__sector"></div>');
+                        hvrDots.append('<div class="hvr__dot"></div>');
+                    });
+                    $('.hvr__dot:first', hvrDots).addClass('hvr__dot--active');
+                    var setActiveEl = function (el) {
+                        hvrImage.hide().eq(el.index()).show();
+                        $('.hvr__dot', hvrDots).removeClass('hvr__dot--active').eq(el.index()).addClass('hvr__dot--active');
+                    };
+                    $('.hvr__sector', hvrSectors).hover(function () {
+                        setActiveEl($(this));
+                    });
+                    hvrSectors.on('touchmove', function (e) {
+                        var position = e.originalEvent.changedTouches[0];
+                        var target = document.elementFromPoint(position.clientX, position.clientY);
+                        if ($(target).is('.hvr__sector')) {
+                            setActiveEl($(target));
+                        }
+                    });
+                }
+            });
+        };
+    })(jQuery);
+
+    $('.images').HvrSlider();
+</script>
+
+</body>
+</html>

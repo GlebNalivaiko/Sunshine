@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ToDoList</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/login.css}">
+</head>
+<body>
+
+<div style="z-index: -10" class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+<div id="container_demo">
+    <div id="wrapper">
+        <div style="margin-top: 50px;margin-left: 500px;width: 500px" id="login" class="animate form">
+            <form style="margin-top: -17px" th:action="@{/security/authorization}" method="post"
+                  th:object="${authorizationRequestUser}" autocomplete="off">
+                <h1>Authorization</h1>
+                <p>
+                    <label for="username" data-icon="u"> E-mail</label>
+                    <input th:field="*{email}" id="username" name="username" required="required"/>
+                </p>
+                <p>
+                    <label for="password" data-icon="p"> Password </label>
+                    <input th:field="*{password}" id="password" name="password" required="required" type="password"/>
+                    <span style="color: red" th:if="${error!=null}" th:text="${error}"></span>
+                </p>
+                <p class="login button">
+                    <input type="submit" value="Come in"/>
+                </p>
+                <p class="change_link">
+                    Not registered yet?
+                    <a th:href="@{/security/registration_check}" class="to_register">Join us</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

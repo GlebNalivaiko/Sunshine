@@ -1,0 +1,44 @@
+.c {
+    margin: auto;
+    border: 5px solid transparent;
+    box-sizing: border-box;
+}
+
+.c {
+    background-image: linear-gradient(white, white),
+    linear-gradient(270deg, #00D7B9, #B95DD7 50%, #FFB367 100%);
+
+    background-repeat: no-repeat;
+    background-origin: padding-box, border-box;
+    text-align: center;
+}
+
+.c {
+    background-image: linear-gradient(white, white),
+    linear-gradient(180deg, deepskyblue 30%, yellow 50%, red);
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 200%;
+    background-position: 0 0, 0 100%;
+    background-origin: padding-box, border-box;
+    animation: highlight 1s infinite alternate;
+}
+
+.c:hover {
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+.c {
+    transition: transform .4s;
+}
+
+{
+    transition: transform 100s
+;
+}
+
+@keyframes highlight {
+    100% {
+        background-position: 0 0, 0 0;
+    }
+}

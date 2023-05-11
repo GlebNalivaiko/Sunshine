@@ -1,0 +1,19 @@
+#largeImg {
+    border: solid 1px #ccc;
+    width: 700px;
+    height: 600px;
+    padding: 5px;
+}
+#thumbs a {
+    border: solid 1px #ccc;
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+#thumbs li {
+    list-style: none;
+}
+#thumbs {
+    margin: 0;
+    padding: 0;
+}

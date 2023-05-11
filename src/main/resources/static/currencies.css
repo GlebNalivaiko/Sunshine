@@ -1,0 +1,68 @@
+.drop {
+    display: inline-block;
+    height: 30px;
+    position: relative;
+    color: #fff;
+}
+
+.drop p {
+    display: block;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.drop .dropdown_block {
+    display: none;
+    width: 150px;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+}
+
+.drop:hover .dropdown_block,
+.dropdown_block:hover {
+    display: block;
+}
+
+.drop ul {
+    display: block;
+    width: 150px;
+    background: white;
+    padding: 0;
+    margin: 10px 0 0;
+    list-style: none;
+    max-height: 90px;
+    overflow: hidden auto;
+}
+
+.drop li {
+    width: 150%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.drop li:hover {
+    background: blue;
+    cursor: pointer;
+}
+
+
+
+
+/*затемнение*/
+.drop {
+    transition: .5s;
+}
+
+
+.drop {
+    list-style: none;
+    color: #000;
+}

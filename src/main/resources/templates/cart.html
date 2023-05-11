@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine</title>
+    <link rel="icon" th:href="@{img/logo.jpg}">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/block_animation.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+    <link rel="stylesheet" th:href="@{/main_sliding_panel.css}">
+    <link rel="stylesheet" th:href="@{/hidden_text.css}">
+    <link rel="stylesheet" th:href="@{/but.css}">
+    <link rel="stylesheet" th:href="@{/currencies.css}">
+    <link rel="stylesheet" th:href="@{/flag-icon-css/css/flag-icon.min.css}">
+</head>
+<body style="background-color: #E3E6E6">
+<nav th:replace="pattern :: header('/sunshine-by', '#', '/order-cart')"></nav>
+<nav th:replace="pattern :: navbar"></nav>
+
+
+<div style="font-weight: bold;font-size: 35px;margin-left: 300px">
+    Cart
+</div>
+<div th:if="${#lists.isEmpty(cart.getProducts())}"
+     style="font-size: 40px; color: deepskyblue;text-align: center;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-cart-plus"
+         viewBox="0 0 16 16">
+        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg>
+    <div>
+        Oops, your shopping cart is empty...
+    </div>
+</div>
+<div th:unless="${#lists.isEmpty(cart.getProducts())}" class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <div style="border: #bacbe6 solid 1px;border-radius: 10px; margin-block: 20px"
+                 th:each="product:${cart.getProducts()}"
+                 th:with="price=${(product.getPrice()-product.getDiscount()*product.getPrice())/session.user.valueOfCurrency},
+                              currency=${session.user.currency}, productId =${product.getId()}">
+                <a style="display: inline-block;padding: 10px;text-decoration: none"
+                   th:href="@{/products/{id}(id=${productId})}">
+                    <div style="display: inline-block;padding: 10px">
+                        <div class="common">
+                            <div th:unless="${#lists.isEmpty(product.getImages())}" class="images">
+                                <img style="padding: 10px;border-radius: 10px;width: 200px;height: 200px"
+                                     th:src="*{'data:image/jpg;base64,'+ product.images.get(0).getPixels()}"
+                                     th:title="${product.images.get(0).getDescription()}" alt="...">
+                            </div>
+                            <div th:if="${#lists.isEmpty(product.getImages())}" class="images">
+                                <img style="padding: 10px;border-radius: 10px;width: 200px;height: 200px"
+                                     th:src="@{/img/soon.webp}"
+                                     title="Picture will be here soon" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+
+                <div th:with="discount=${product.getPrice()/session.user.valueOfCurrency}" width="500px"
+                     style="float: right;margin-left: 40px;text-align: left;position: absolute;display: inline-block">
+                    <div style="font-size: 25px;color: #0F1111!important;font-family: tahoma,sans-serif;font-weight: 400!important;display: inline-block;"
+                         th:text="${product.getTitle()}"></div>
+                    <p class="hidden" style="font-size: 25px;width: 565px;font-family: gabriola,serif"
+                       th:text="${product.getDescription()}"></p>
+
+                    <span th:if="${product.getDiscount()>0}"
+                          style="font-size: 20px;color: gray;text-decoration: line-through red"
+                          th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',discount)}"></span>
+                    &nbsp;&nbsp;
+                    <span th:if="${product.getDiscount()>0}"
+                          style="font-size: 20px;color: red"
+                          th:text="'-'+${product.getDiscount()*100}+'%'"></span>
+                    <span th:text="'In Stock: '+${product.quantityInStock}"></span>
+                    <div style="font-weight: bold; font-size: 25px"
+                         th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',price)}"></div>
+                </div>
+                <a th:title="Delete" th:method="DELETE"
+                   style="margin-top: 200px;margin-left: 150px;border-radius: 40px;text-decoration: none"
+                   th:href="@{/cart/delete/{product_id}(product_id=${productId})}">
+                    <button style="    margin-top: 168px;margin-left: -108px;border-radius: 40px" type="button"
+                            class="btn btn-outline-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-trash3" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                        </svg>
+                    </button>
+                </a>
+                <!--                кнопка-->
+                <div style="color: blue;display: inline-block; margin-left: 95px; position: absolute; margin-top: 189px;"
+                     th:if="${product.getQuantityInStock() < 1}">
+                    Out of stock!
+                </div>
+                <div th:if="${product.getQuantityInStock() > 0}"
+                     style="display: inline-block; margin-left: 95px; position: absolute; margin-top: 189px;">
+                    <button th:onclick="'minus(\'' + ${productId} + '\',\'' + ${price} + '\',\'' + ${product.quantityInStock} + '\',this);'"
+                            style="display: inline-block; text-align: center;" class="change minus min">
+                        <span>-</span>
+                    </button>
+                    <label>
+                        <input class="i" style="display: inline-block; text-align: center;" type="text" name="productСount"
+                               value="1"
+                               disabled="">
+                    </label>
+                    <button th:onclick="'plus(\'' + ${productId} + '\',\'' + ${price} + '\',\'' + ${product.quantityInStock} + '\',this);'"
+                            style="display: inline-block; text-align: center;" class="change plus">
+                        <span>+</span>
+                    </button>
+
+                    <button id="Order" style="display: inline-block"
+                            th:onclick="'change(\'' + ${productId} + '\', \'' + ${price} + '\',this);'"
+                            type="button"
+                            class="btn btn-success">
+                        <svg id="ord" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                            <path id="path" fill-rule="evenodd"
+                                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"></path>
+                        </svg>&#160;To Order
+                    </button>
+                </div>
+
+                <!--                кнопка-->
+            </div>
+        </div>
+        <div class="col-3" style="border: black 1px solid">
+            <div style="text-align: center;font-size: 25px;font-family: math;">Order</div>
+            <div style="font-size: 20px; font-family: inherit;">
+                Total Amount: <span style="word-wrap: break-word" id="total">0</span>
+            </div>
+            <button id="send" onclick="sendAjax()" disabled type="button" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z"></path>
+                </svg>
+                Order
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+
+    let chosenProducts = new Map();
+
+    let totalAmount = 0;
+
+    function total() {
+        document.getElementById("total").innerHTML = totalAmount.toFixed(2).replace('-', '');
+    }
+
+    function sendAjax() {
+        let json = JSON.stringify(Object.fromEntries(chosenProducts));
+        $.ajax({
+            url: "order-cart",
+            type: 'POST',
+            dataType: 'json',
+            data: json,
+            contentType: 'application/json',
+            mimeType: 'application/json',
+        }).done(function () {
+            window.location = "http://localhost:8083/sunshine-by"
+        })
+            .fail(function () {
+                window.location = "http://localhost:8083/security/authorization_check"
+            });
+    }
+
+
+    function change(id, price, element) {
+        let elem = element;
+        let value = elem.parentElement.querySelector(".i").value;
+        if (elem.textContent.trim() === "From Order") {
+            chosenProducts.delete(id);
+            totalAmount -= parseFloat(price).toFixed(2) * parseInt(value);
+            total();
+            element.innerHTML = "<svg id=\"ord\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\"\n" +
+                "                     class=\"bi bi-bag-check-fill\" viewBox=\"0 0 16 16\">\n" +
+                "                    <path id=\"path\" fill-rule=\"evenodd\"\n" +
+                "                          d=\"M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z\"></path>\n" +
+                "                </svg>&#160;To Order"
+            element.classList.remove("btn-danger");
+            element.classList.add("btn-success");
+        } else {
+            chosenProducts.set(id, value);
+            totalAmount += parseFloat(price).toFixed(2) * parseInt(value);
+            total();
+            element.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-bag-x-fill\" viewBox=\"0 0 16 16\">\n" +
+                "                    <path fill-rule=\"evenodd\" d=\"M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM6.854 8.146a.5.5 0 1 0-.708.708L7.293 10l-1.147 1.146a.5.5 0 0 0 .708.708L8 10.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 10l1.147-1.146a.5.5 0 0 0-.708-.708L8 9.293 6.854 8.146z\"/>\n" +
+                "                </svg>&#160;From Order"
+            element.classList.remove("btn-success");
+            element.classList.add("btn-danger");
+        }
+        if (chosenProducts.size > 0) document.querySelector("#send").removeAttribute('disabled');
+        else document.querySelector("#send").setAttribute('disabled', true);
+    }
+
+    function plus(id, price, quantity, element) {
+        let plus = element;
+        let value = plus.parentElement.querySelector("#Order").textContent.trim();
+        ++plus.parentElement.querySelector(".i").value;
+        if (parseInt(quantity) >= parseInt(plus.parentElement.querySelector(".i").value) && value === "From Order") {
+            totalAmount += parseFloat(parseFloat(price).toFixed(2));
+            total();
+        }
+        if (plus.parentElement.querySelector(".i").value > 1) {
+            plus.parentElement.querySelector(".minus").classList.remove("min");
+        }
+        if (plus.parentElement.querySelector(".i").value >= parseInt(quantity)) {
+            plus.parentElement.querySelector('.i').value = parseInt(quantity);
+            plus.parentElement.querySelector(".plus").classList.add("min");
+        }
+        if (value === "From Order") {
+            chosenProducts.set(id, plus.parentElement.querySelector(".i").value);
+        }
+    }
+
+    function minus(id, price, quantity, element) {
+        let minus = element;
+        let value = minus.parentElement.querySelector("#Order").textContent.trim();
+        --minus.parentElement.querySelector('.i').value;
+        if (1 <= minus.parentElement.querySelector(".i").value && value === "From Order") {
+            totalAmount -= parseFloat(parseFloat(price).toFixed(2));
+            total();
+        }
+        if (minus.parentElement.querySelector('.i').value < 2) {
+            minus.parentElement.querySelector('.i').value = 1
+            minus.classList.add('min');
+        }
+        if (minus.parentElement.querySelector(".i").value < parseInt(quantity)) {
+            minus.parentElement.querySelector(".plus").classList.remove("min");
+        }
+        if (value === "From Order") {
+            chosenProducts.set(id, minus.parentElement.querySelector(".i").value);
+        }
+    }
+
+
+</script>
+<br>
+
+
+<footer th:replace="pattern :: footer"></footer>
+
+<script th:href="@{/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

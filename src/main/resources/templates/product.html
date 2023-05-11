@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Sunshine</title>
+    <link rel="icon" th:href="@{/img/logo.jpg}">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/block_animation.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/product_page.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+    <link rel="stylesheet" th:href="@{/main_sliding_panel.css}">
+    <link rel="stylesheet" th:href="@{/footer.css}">
+    <link rel="stylesheet" th:href="@{/main_sliding_panel.css}">
+    <link rel="stylesheet" th:href="@{/currencies.css}">
+    <link rel="stylesheet" th:href="@{/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/foundation.css}"/>
+    <link rel="stylesheet" th:href="@{/table.css}">
+    <script th:src="@{/modernizr.js}"></script>
+    <script th:src="@{/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/xzoom.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/xzoom.css}" media="all"/>
+    <script type="text/javascript" th:src="@{/jquery.hammer.min.js}"></script>
+    <link type="text/css" rel="stylesheet" media="all" th:href="@{/magnific-popup.css}"/>
+    <script type="text/javascript" th:src="@{/magnific-popup.js}"></script>
+</head>
+<body style="background-color: #E3E6E6">
+<nav th:replace="pattern :: header('/sunshine-by', '/cart', '/order-cart')"></nav>
+<nav th:replace="pattern :: navbar"></nav>
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <div class="row">
+                <div class="large-12 column"><p>
+                    <h2 th:text="${product.getTitle()}"></h2></div>
+            </div>
+
+            <!-- magnific start -->
+            <section id="magnific">
+                <div class="row">
+                    <div height="600" style="width: 700px;height: 600px" class="large-9 column">
+                        <div th:unless="${#lists.isEmpty(product.getImages())}" class="xzoom-container xzoom-magnific">
+                            <img class="xzoom5 img-fluid"
+                                 th:src="@{'data:image/jpg;base64,'+ ${product.getImages().get(0).getPixels()}}"
+                                 th:xoriginal="'data:image/jpg;base64,'+ ${product.getImages().get(0).getPixels()}"/>
+                            <div class="xzoom-thumbs">
+                                <a th:each="image:${product.getImages()}"
+                                   th:xoriginal="'data:image/jpg;base64,'+ ${image.getPixels()}"
+                                   th:href="${'data:image/jpg;base64,'+ image.getPixels()}"><img class="xzoom-gallery5"
+                                                                                                 width="120"
+                                                                                                 th:src="${'data:image/jpg;base64,'+ image.getPixels()}"
+                                                                                                 th:title="${image.getDescription()}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-7 column"></div>
+                </div>
+            </section>
+            <!-- magnific end -->
+
+        </div>
+
+
+        <div class="col">
+            <div class="row">
+                <section>
+                    <div class="row">
+                        <div class="large-9 column"
+                             th:with="discount=${product.getPrice()/session.user.valueOfCurrency},
+                              price=${(product.getPrice()-product.getDiscount()*product.getPrice())/session.user.valueOfCurrency},
+                              currency=${session.user.currency}">
+                            <br><br><br><br><br>
+                            <div style="font-size: 25px; font-family: 'Fira Code Retina',math "
+                                 th:text="${product.getDescription()}">
+
+                            </div>
+                            <span th:if="${product.getDiscount()>0}"
+                                  style="font-size: 20px;color: gray;text-decoration: line-through red"
+                                  th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',discount)}"></span>
+                            &nbsp;&nbsp;
+                            <span th:if="${product.getDiscount()>0}"
+                                  style="font-size: 20px;color: red"
+                                  th:text="'-'+${product.getDiscount()*100}+'%'"></span>
+                            <div style="font-weight: bold; font-size: 25px"
+                                 th:text="${#strings.toUpperCase(currency)} +': '+${T(java.lang.String).format('%.2f',price)}"></div>
+
+                            <a style="text-decoration: none" th:href="@{/cart/{product_id}(product_id=${product.id})}">
+                                <button style="margin-top: 25px;border-radius: 40px" type="button"
+                                        class="btn btn-outline-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                         fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </button>
+                            </a>
+                            <br>
+                            <div th:text="'Quantity in stock: '+${product.getQuantityInStock()}"></div>
+
+
+                            <div th:with="stars=${product.getAverageRating()}">
+
+                                <div style="display:inline-block;font-size: 14px!important;
+                                line-height: 20px!important;font-weight: normal;font-family:Arial,sans-serif; color: #0F1111"
+                                     th:text="${stars}"></div>
+
+                                <div style="margin-left: 10px;display: inline-block">
+                                    <div style="margin-left: -25px;display: inline-block"
+                                         th:each="count : ${#numbers.sequence( 0, 4/1)}">
+
+                                        <div style=";display:inline-block"
+                                             th:switch="${true}">
+                                            <img th:case="${count<stars&&stars>=count+0.3&&stars<count+0.8}"
+                                                 style="height: 33px;width: 40px" th:src="@{/img/half_star.png}">
+                                            <img th:case="${stars>=count+0.8}" style="height: 33px;width: 40px"
+                                                 th:src="@{/img/full_star.png}">
+                                            <img th:case="${true}" style="height: 33px;width: 40px"
+                                                 th:src="@{/img/white_star.png}">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div style="    display: inline-block;
+                                  font-weight: normal; margin-left: 19px;">
+                                    <a style="text-decoration: none;    font-size: 17px!important;
+                                    line-height: 16px!important;color: #007185" href="#rating" title="Ratings"
+                                       th:text="'('+${#lists.size(product.getComments())}+')'">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="large-7 column"></div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="table_characteristic">
+    <h1 class="text"><span class="blue">&lt;</span><span th:text="${product.getTitle()}"></span>
+        <span class="blue">&gt;</span> <span class="yellow" th:text="${product.getCategory().name}"></span></h1>
+
+    <table class="cont">
+        <thead>
+        <tr>
+            <th><h1 class="text">Details</h1></th>
+            <th><h1 class="text">Characteristic</h1></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="element:${product.getCharacteristics()}">
+            <td style="width: 300px" th:text="${element.key}">Google</td>
+            <td th:text="${element.value}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+<div id="rating" style="margin-left: 400px;font-weight: bold; font-size: 30px">Ratings</div>
+<br><br>
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+             <span th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                   th:with="picture=${count<5}?'/img/full_star.png':'/img/white_star.png'"
+                   style="display:inline-block;">
+                <img style="display: inline-block; width: 64px;height: 37px;margin-left: -20px" th:src="@{${picture}}">
+            </span>
+            <div style="display: inline-block" class="progress w-25" role="progressbar" aria-label="Basic example"
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 0%">0</div>
+            </div>
+            <br>
+            <span th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                  th:with="picture=${count<4}?'/img/full_star.png':'/img/white_star.png'"
+                  style="display:inline-block;">
+                <img style="display: inline-block; width: 64px;height: 37px;margin-left: -20px" th:src="@{${picture}}">
+            </span>
+            <div style="display: inline-block" class="progress w-25" role="progressbar" aria-label="Basic example"
+                 aria-valuenow="25" aria-valuemin="0"
+                 aria-valuemax="100">
+                <div class="progress-bar" style="width: 25%">25</div>
+            </div>
+            <br>
+            <span th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                  th:with="picture=${count<3}?'/img/full_star.png':'/img/white_star.png'"
+                  style="display:inline-block;">
+                <img style="display: inline-block; width: 64px;height: 37px;margin-left: -20px" th:src="@{${picture}}">
+            </span>
+            <div style="display: inline-block" class="progress w-25" role="progressbar" aria-label="Basic example"
+                 aria-valuenow="50" aria-valuemin="0"
+                 aria-valuemax="100">
+                <div class="progress-bar" style="width: 50%">50</div>
+            </div>
+            <br>
+            <span th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                  th:with="picture=${count<2}?'/img/full_star.png':'/img/white_star.png'"
+                  style="display:inline-block;">
+                <img style="display: inline-block; width: 64px;height: 37px;margin-left: -20px" th:src="@{${picture}}">
+            </span>
+            <div style="display: inline-block" class="progress w-25" role="progressbar" aria-label="Basic example"
+                 aria-valuenow="75" aria-valuemin="0"
+                 aria-valuemax="100">
+                <div class="progress-bar" style="width: 75%">75</div>
+            </div>
+            <br>
+            <span th:each="count : ${#numbers.sequence( 0, 4/1)}"
+                  th:with="picture=${count<1}?'/img/full_star.png':'/img/white_star.png'"
+                  style="display:inline-block;">
+                <img style="display: inline-block; width: 64px;height: 37px;margin-left: -20px" th:src="@{${picture}}">
+            </span>
+            <div style="display: inline-block" class="progress w-25" role="progressbar" aria-label="Basic example"
+                 aria-valuenow="100" aria-valuemin="0"
+                 aria-valuemax="100">
+                <div class="progress-bar" style="width: 100%">100</div>
+            </div>
+        </div>
+        <div class="col">
+            <div style="padding: 7px; border: deepskyblue  solid 1px; border-radius: 5px; margin-block: 10px"
+                 th:each="comment : ${product.getComments()}" th:with="stars=${comment.stars}">
+                <div style="font-size: 20px;font-family: monospace;display: inline-block"
+                     th:text="${comment.nameOfUser}"></div>
+                <div style="font-size: 15px;font-family: monospace;display: inline-block"
+                     th:text="' ('+${comment.date}+')'"></div>
+                <div style="display: inline-block;margin-left: 10px;">
+                    <div style="margin-left: -25px;display: inline-block"
+                         th:each="count : ${#numbers.sequence( 0, 4/1)}">
+                        <div style=";display:inline-block"
+                             th:switch="${true}">
+                            <img th:case="${count<stars&&stars>=count+0.3&&stars<count+0.8}"
+                                 style="height: 33px;width: 40px" th:src="@{/img/half_star.png}">
+                            <img th:case="${stars>=count+0.8}" style="height: 33px;width: 40px"
+                                 th:src="@{/img/full_star.png}">
+                            <img th:case="${true}" style="height: 33px;width: 40px"
+                                 th:src="@{/img/white_star.png}">
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 13px" th:text="${comment.opinion}"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<br><br><br><br>
+
+
+<script th:src="@{/foundation.min.js}"></script>
+<script th:src="@{/setup.js}"></script>
+
+
+<footer th:replace="pattern :: footer"></footer>
+
+<script th:href="@{/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

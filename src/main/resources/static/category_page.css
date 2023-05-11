@@ -1,0 +1,57 @@
+/* обязательные стили */
+
+
+.hvr__images {
+    position: relative;
+}
+
+.hvr__sectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.hvr__sector {
+    flex-grow: 1;
+}
+
+/* не обязательные стили */
+
+.common {
+    width: 250px;
+    height: 250px;
+    padding: 0 0;
+}
+
+.images {
+    display: flex;
+    overflow: hidden;
+}
+
+.image {
+    border-radius: 7%;
+    height: 250px;
+    width: 250px;
+    display: block;
+}
+
+.hvr__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hvr__dot {
+    width: 10px;
+    height: 10px;
+    margin: 10px 2px 0;
+    border-radius: 50%;
+    background: grey;
+}
+
+.hvr__dot--active {
+    background: #000;
+}
